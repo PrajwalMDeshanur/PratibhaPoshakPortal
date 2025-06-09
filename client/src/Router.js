@@ -8,12 +8,13 @@ import BulkUploadApplications from "./pages/BulkUploadApplications";
 import NewApplication from "./pages/NewApplication";
 import Shortlisting from "./pages/Shortlisting";
 import ScreeningTests from "./pages/ScreeningTests";
-// import UpdateNewApplication from "./pages/NewApplication";
-import CreateExam from './pages/CreateExam';
+import CreateExam from "./pages/CreateExam";
 import SearchApplications from "./pages/SearchApplications";
 import EditForm from "./pages/EditForm";
 import GenerateShortlist from "./pages/GenerateShortlist";
-import ShortlistInfo  from "./pages/ShortlistInfo"; 
+import ShortlistInfo from "./pages/ShortlistInfo";
+import ViewStudentInfo from "./pages/ViewStudentInfo";
+// import Login from "./pages/Auth/Login";
 
 export const appRouter = createBrowserRouter([
   {
@@ -23,16 +24,22 @@ export const appRouter = createBrowserRouter([
       { path: "/", element: <Dashboard /> },
       { path: "/upload-applications", element: <UploadApplications /> },
       { path: "/new-application", element: <NewApplication /> },
-      { path: "/bulk-upload-applications", element: <BulkUploadApplications /> },
+      {
+        path: "/bulk-upload-applications",
+        element: <BulkUploadApplications />,
+      },
       { path: "/search-applications", element: <SearchApplications /> },
       { path: "/view-applications", element: <ViewApplications /> },
       { path: "/shortlisting", element: <Shortlisting /> },
       { path: "/screening-tests", element: <ScreeningTests /> },
-      { path: "/Create-Exams", element: <CreateExam />},
-      {path: "/edit-form/:nmms_reg_number", element: <EditForm /> },
-      {path: "/generate-shortlist", element:<GenerateShortlist/>},
-      { path: "/shortlist-info", element: <ShortlistInfo /> } 
-
+      { path: "/Create-Exams", element: <CreateExam /> },
+      { path: "/edit-form/:nmms_reg_number", element: <EditForm /> },
+      { path: "/generate-shortlist", element: <GenerateShortlist /> },
+      { path: "/shortlist-info", element: <ShortlistInfo /> },
+      {
+        path: "/view-student-info/:nmms_reg_number",
+        element: <ViewStudentInfo />,
+      },
     ],
   },
 ]);
