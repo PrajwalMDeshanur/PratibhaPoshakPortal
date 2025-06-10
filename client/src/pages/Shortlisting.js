@@ -35,12 +35,25 @@ const Shortlisting = () => {
         <ul>
         <li>
             The first step is to generate a shortlist based on the state,
+<<<<<<< HEAD
             district, and optionally multiple blocks.
           </li>
           <li>
             You can generate a shortlist multiple times. However, if you want to
             finalize and lock the shortlist, you need to freeze it from the
             "Shortlisted Information" interface.
+=======
+            district, and multiple blocks, using specific criteria.
+          </li>
+          <li>
+            You can generate a shortlist multiple times but 
+            only one shortlist can exist for a specific block at any given time.
+            To finalize a shortlist, you need to freeze it from the
+            "Shortlisted Information" interface.
+            </li>
+            <li>
+            Similarly, deletion of a shortlist is also done through the "Shortlisted Information" interface.
+>>>>>>> e7a48c159d4ace8483cebe22797c96a735dc6ac7
           </li>
           <li>
             From the "Shortlisted Information" interface, you can access all the

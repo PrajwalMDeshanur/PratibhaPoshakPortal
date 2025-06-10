@@ -1,4 +1,5 @@
 /* Container styling */
+<<<<<<< HEAD
 .createcriteria {
     text-align: center;
     padding: 20px;
@@ -75,3 +76,204 @@
     font-family: Arial, sans-serif;
   }
   
+=======
+.container {
+  text-align: center;
+  padding: 30px;
+}
+
+/* Heading styles */
+h1 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+/* Counts container */
+.counts-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.count-box {
+  background-color: #e9ecef;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+.count-box p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #495057;
+}
+
+/* Application options container (Grid Layout) */
+.shortlisting-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 20px; /* Gap between the boxes */
+  max-width: 520px; /* Adjust as needed to control the line width */
+  margin: 30px auto; /* Center the grid */
+}
+
+/* Individual option box */
+.option-box {
+  background: #fff;
+  border-radius: 15px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+}
+
+.option-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon box */
+.icon-box {
+  font-size: 50px;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+/* Text inside option box */
+.text-box {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Detailed view styling - Default size */
+.detailed-view {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  max-width: 600px; /* Keep the default max-width */
+  margin: 30px auto;
+  transition: max-width 0.3s ease-in-out; /* Add transition for smooth resizing */
+}
+
+/* Detailed view styling - Larger size for download view */
+.detailed-view.download-view {
+  max-width: 95%; /* Larger max-width for the download view */
+}
+
+.get-info-view {
+  max-width: 700px; /* Adjust width for Get Info view if needed */
+}
+
+.detailed-view h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.detailed-view button {
+  background-color: #6c757d;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.detailed-view button:hover {
+  background-color: #545b62;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.shortlist-details-info {
+  text-align: left;
+}
+
+.shortlist-details-info h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.shortlist-details-info p {
+  margin-bottom: 10px;
+}
+
+.justified-text {
+  text-align: justify;
+}
+
+.back-button-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.below-button {
+  margin-top: 30px;
+}
+
+/* Download View Styles */
+.shortlisted-data-preview {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.shortlisted-data-preview h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.table-container {
+  overflow-x: auto; /* Enable horizontal scrolling for large tables */
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border: 1px solid #dee2e6;
+}
+
+.table-container th,
+.table-container td {
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  text-align: left;
+  font-size: 14px;
+}
+
+.table-container th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.download-confirmation {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.confirmation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.confirmation-buttons button {
+  padding: 8px 15px;
+  font-size: 16px;
+  border-radius: 6px;
+  margin: 0;
+}
+>>>>>>> e7a48c159d4ace8483cebe22797c96a735dc6ac7
