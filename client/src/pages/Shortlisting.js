@@ -36,6 +36,7 @@ const Shortlisting = () => {
         <li>
             The first step is to generate a shortlist based on the state,
 <<<<<<< HEAD
+<<<<<<< HEAD
             district, and optionally multiple blocks.
           </li>
           <li>
@@ -44,14 +45,15 @@ const Shortlisting = () => {
             "Shortlisted Information" interface.
 =======
             district, and multiple blocks, using specific criteria.
+=======
+            district, and optionally multiple blocks, using specific criteria.
+>>>>>>> parent of e7a48c1 (first commit)
           </li>
           <li>
-            You can generate a shortlist multiple times but 
-            only one shortlist can exist for a specific block at any given time.
-            To finalize a shortlist, you need to freeze it from the
+            You can generate a shortlist multiple times.
+            Only one shortlist can exist for a specific block at any given time.
+            To finalize and secure a shortlist, you need to freeze it from the
             "Shortlisted Information" interface.
-            </li>
-            <li>
             Similarly, deletion of a shortlist is also done through the "Shortlisted Information" interface.
 >>>>>>> e7a48c159d4ace8483cebe22797c96a735dc6ac7
           </li>

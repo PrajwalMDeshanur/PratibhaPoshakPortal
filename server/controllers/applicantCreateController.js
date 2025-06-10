@@ -1,13 +1,15 @@
 const pool = require("../config/db");
 const moment = require("moment");
 
+// Function to sanitize values before insertion
 const sanitizeValue = (value, type = "text") => {
   if (value === undefined || value === null || value === "") {
-    return type === "numeric" ? null : null; // You could adjust numeric sanitization here if needed
+    return type === "numeric" ? null : null; // Convert empty numeric fields to NULL
   }
   return value;
 };
 
+// Function to properly format DOB
 const sanitizeDate = (dateStr) => {
   if (!dateStr) return null;
   return moment(dateStr, ["DD-MM-YYYY", "YYYY-MM-DD"], true).isValid()
@@ -15,11 +17,12 @@ const sanitizeDate = (dateStr) => {
     : null;
 };
 
+// Create Applicant Function
 const createApplicant = async (req, res) => {
-  const client = await pool.connect();
   try {
     console.log("Received data:", req.body);
 
+    // List of required fields
     const requiredFields = [
       "nmms_year", "nmms_reg_number", "student_name", "father_name",
       "medium", "contact_no1", "contact_no2", "district",
@@ -33,6 +36,7 @@ const createApplicant = async (req, res) => {
       }
     }
 
+    // Sanitize and validate input values
     const applicantData = {
       nmms_year: sanitizeValue(req.body.nmms_year, "numeric"),
       nmms_reg_number: sanitizeValue(req.body.nmms_reg_number),
@@ -56,9 +60,8 @@ const createApplicant = async (req, res) => {
       DOB: sanitizeDate(req.body.DOB),
     };
 
-    await client.query('BEGIN');
-
-    const insertPrimaryQuery = `
+    // PostgreSQL Insert Query
+    const query = `
       INSERT INTO pp.applicant_primary_info (
         nmms_year, nmms_reg_number, app_state, district, nmms_block, 
         student_name, father_name, gmat_score, sat_score, contact_no1, 
@@ -67,35 +70,18 @@ const createApplicant = async (req, res) => {
       ) VALUES (
         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 
         $11, $12, $13, $14, $15, $16, $17, $18, $19, $20
-      ) RETURNING applicant_id
-    `;
+      ) RETURNING *`;
 
     const values = Object.values(applicantData);
-    const result = await client.query(insertPrimaryQuery, values);
 
-    const applicantId = result.rows[0].applicant_id;
+    const result = await pool.query(query, values);
+    console.log("Data inserted successfully:", result.rows[0]);
 
-    // Insert into secondary_info
-    await client.query(
-      `INSERT INTO pp.applicant_secondary_info (applicant_id) VALUES ($1)`,
-      [applicantId]
-    );
-
-    await client.query('COMMIT');
-
-    console.log("Application created successfully. ID:", applicantId);
-
-    res.status(201).json({
-      message: "Application created successfully",
-      data: { applicant_id: applicantId }
-    });
+    res.status(201).json({ message: "Application submitted successfully", data: result.rows[0] });
 
   } catch (error) {
-    await client.query('ROLLBACK');
-    console.error("Error inserting data:", error.stack);  // Log stack trace for debugging
+    console.error("Error inserting data:", error);
     res.status(500).json({ error: "Internal Server Error", details: error.message });
-  } finally {
-    client.release();
   }
 };
 

@@ -1,125 +1,299 @@
-/* ViewApplications.module.css */
-
 .container {
-  padding: 2rem;
-  background-color: #f9fafb;
-  min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #2d3748;
-}
-
-.backButton {
-  background-color: #3b82f6;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border: none;
+  max-width: 100%;
+  padding: 20px;
+  background-color: #f9fafb;
   border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-bottom: 1.5rem;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.backButton:hover {
-  background-color: #2563eb;
-}
-
-.error {
-  color: #dc2626;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.tableContainer {
-  overflow-x: auto;
-  border-radius: 10px;
-  background-color: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 800px;
-}
-
-.table th, 
-.table td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.table th {
-  background-color: #f1f5f9;
-  color: #374151;
-  font-size: 0.95rem;
-  cursor: pointer;
-  position: relative;
-  /* user-select: none; */
-}
-
-.table th:hover {
-  background-color: #e2e8f0;
-}
-
-.table td {
-  font-size: 0.9rem;
-  color: #4b5563;
-}
-
-.table a {
-  color: #3b82f6;
-  text-decoration: none;
-}
-
-.table a:hover {
-  text-decoration: underline;
-}
-
-.pagination {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1.5rem;
-  padding: 0.5rem;
-  background-color: #f1f5f9;
-  border-radius: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
-.pagination span {
-  font-size: 1rem;
-  color: #374151;
+.title {
+  color: #2d3748;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
 }
 
-.pagination button {
-  background-color: #3b82f6;
-  color: white;
+.actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.searchBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  color: #718096;
+}
+
+.searchInput {
+  padding: 10px 15px 10px 40px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  width: 250px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.viewControls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background-color: #edf2f7;
   border: none;
-  padding: 0.6rem 1rem;
-  margin: 0 0.5rem;
-  border-radius: 8px;
+  border-radius: 6px;
+  color: #4a5568;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.2s;
 }
 
-.pagination button:hover {
-  background-color: #2563eb;
+.toggleButton:hover {
+  background-color: #e2e8f0;
 }
 
-.pagination button:disabled {
-  background-color: #9ca3af;
+.toggleButton.active {
+  background-color: #4299e1;
+  color: white;
+}
+
+.refreshButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  color: #4a5568;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.refreshButton:hover {
+  background-color: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+.refreshButton:disabled {
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
-/* Loading state */
-.container p {
-  color: #4b5563;
-  font-size: 1rem;
-  margin-top: 1rem;
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.filterDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  color: #4a5568;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filterButton:hover {
+  background-color: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+.filterDropdownContent {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 100;
+  padding: 8px 0;
+  border-radius: 6px;
+  right: 0;
+}
+
+.filterDropdown:hover .filterDropdownContent {
+  display: block;
+}
+
+.filterHeader {
+  padding: 8px 16px;
+  font-weight: 600;
+  color: #4a5568;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 4px;
+}
+
+.filterOption {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.filterOption:hover {
+  background-color: #f7fafc;
+}
+
+.filterCheckbox {
+  margin-right: 10px;
+  accent-color: #4299e1;
+}
+
+.filterLabel {
+  font-size: 14px;
+}
+
+.resultsInfo {
+  font-size: 14px;
+  color: #718096;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.applicationTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.applicationTable th {
+  background-color: #f7fafc;
+  color: #4a5568;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.sortableHeader {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sortableHeader:hover {
+  background-color: #edf2f7;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sortIcon {
+  color: #cbd5e0;
+  font-size: 16px;
+}
+
+.sortIconActive {
+  color: #4299e1;
+  font-size: 16px;
+}
+
+.applicationTable td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #4a5568;
+}
+
+.dataRow:hover {
+  background-color: #f8fafc;
+}
+
+.clickableCell {
+  color: #3182ce;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.clickableCell:hover {
+  color: #2c5282;
+}
+
+.scoreCell {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.loadingCell, .noResults {
+  text-align: center;
+  padding: 30px;
+  color: #718096;
+}
+
+@media (max-width: 768px) {
+  .header, .toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .searchInput {
+    width: 100%;
+  }
 }

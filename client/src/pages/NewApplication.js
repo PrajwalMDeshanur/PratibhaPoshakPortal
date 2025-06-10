@@ -1,8 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import {UserCircle, Phone, Home, GraduationCap, Calculator} from "lucide-react";
+import {UserCircle, Phone, Home, GraduationCap, Calculator,} from "lucide-react";
 import classes from "./NewApplication.module.css";
-import { useFetchStates, useFetchDistricts, useFetchBlocks, useFetchInstitutes } from "../hooks/useJurisData";
 const NewApplication = () => {
   const currentYear = new Date().getFullYear();
   const startYear = 2022;
@@ -32,42 +31,63 @@ const NewApplication = () => {
     sat_score: "",
   };
 
-  // Add initial secondary data
-  const initialSecondaryData = {
-    village: "",
-    father_occupation: "",
-    mother_occupation: "",
-    father_education: "",
-    mother_education: "",
-    household_size: "",
-    own_house: "",
-    smart_phone_home: "",
-    internet_facility_home: "",
-    career_goals: "",
-    subjects_of_interest: "",
-    transportation_mode: "",
-    distance_to_school: "",
-    num_two_wheelers: "",
-    num_four_wheelers: "",
-    irrigation_land: "",
-    neighbor_name: "",
-    neighbor_phone: "",
-    favorite_teacher_name: "",
-    favorite_teacher_phone: "",
-  };
-
   const [formData, setFormData] = useState(initialFormData);
-  const [secondaryData, setSecondaryData] = useState(initialSecondaryData);
   const [institutes, setInstitutes] = useState([]);
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [blocks, setBlocks] = useState([]);
   const [errors, setErrors] = useState({});
-  
-  useFetchStates(setStates);
-  useFetchDistricts(formData.app_state, setDistricts);
-  useFetchBlocks(formData.district, setBlocks);
-  useFetchInstitutes(formData.nmms_block, setInstitutes);
+
+  useEffect(() => {
+    const fetchStates = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/states");
+        setStates(response.data);
+      } catch (error) {
+        console.error("Error fetching states:", error);
+      }
+    };
+    fetchStates();
+  }, []);
+
+  useEffect(() => {
+    if (!formData.app_state) return;
+    const fetchDistricts = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/districts-by-state/${formData.app_state}`);
+        setDistricts(response.data);
+      } catch (error) {
+        console.error("Error fetching districts:", error);
+      }
+    };
+    fetchDistricts();
+  }, [formData.app_state]);
+
+  useEffect(() => {
+    if (!formData.district) return;
+    const fetchBlocks = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/blocks-by-district/${formData.district}`);
+        setBlocks(response.data);
+      } catch (error) {
+        console.error("Error fetching blocks:", error);
+      }
+    };
+    fetchBlocks();
+  }, [formData.district]);
+
+  useEffect(() => {
+    if (!formData.nmms_block) return;
+    const fetchInstitutes = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/institutes-by-block/${formData.nmms_block}`);
+        setInstitutes(response.data);
+      } catch (error) {
+        console.error("Error fetching institutes:", error);
+      }
+    };
+    fetchInstitutes();
+  }, [formData.nmms_block]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,70 +107,7 @@ const NewApplication = () => {
       if (!/^(?:[0-9]|[1-8][0-9]|90)?$/.test(value)) return;
     }
 
-    if(name === 'app_state') {
-      setFormData((prev) => ({
-        ...prev,
-        district: "",
-        nmms_block: "",
-        current_institute_dise_code: "",
-        previous_institute_dise_code: ""
-      }));
-      setDistricts([]);
-      setBlocks([]);
-      setInstitutes([]);
-    } else if (name === 'district') {
-      setFormData((prev) => ({
-        ...prev,
-        nmms_block: "",
-        current_institute_dise_code: "",
-        previous_institute_dise_code: ""
-      }));
-      setBlocks([]);
-      setInstitutes([]);
-    } else if (name === 'nmms_block') {
-      setFormData((prev) => ({
-       ...prev,
-        current_institute_dise_code: "",
-        previous_institute_dise_code: ""
-      }));
-      setInstitutes([]);
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: newValue,
-      }))
-    }
-
     setFormData((prev) => ({ ...prev, [name]: newValue }));
-  };
-
-  // Add handler for secondary data changes
-  const handleSecondaryChange = (e) => {
-    const { name, value } = e.target;
-    let newValue = value;
-  
-    // Numeric validation for specific fields
-    if (["household_size", "distance_to_school", "num_two_wheelers", 
-         "num_four_wheelers", "irrigation_land"].includes(name)) {
-      if (!/^\d*\.?\d*$/.test(newValue)) return;
-    }
-  
-    // Phone number validation
-    if (["neighbor_phone", "favorite_teacher_phone"].includes(name) && 
-        newValue.length > 10) return;
-  
-    // Yes/No fields validation
-    if (["own_house", "smart_phone_home", "internet_facility_home"].includes(name)) {
-      newValue = newValue.toUpperCase();
-      if (newValue !== "YES" && newValue !== "NO" && newValue !== "") {
-        return;
-      }
-    }
-  
-    setSecondaryData((prev) => ({
-      ...prev,
-      [name]: newValue
-    }));
   };
 
   const handleSubmit = async (e) => {
@@ -231,25 +188,8 @@ const NewApplication = () => {
     }
 
     try {
-      // Submit primary data
-      const response = await axios.post("http://localhost:5000/applicants/create", formData);
-      
+      const response = await axios.post("http://localhost:5000/applicants/create",formData);
       if (response.status === 201) {
-        // If primary data submission is successful, create an empty secondary data record
-        // with just the applicant_id to establish the relationship
-        if (response.data && response.data.applicant_id) {
-          try {
-            // Only send the applicant_id to create a placeholder record
-            await axios.post(
-              `http://localhost:5000/api/secondaryApplicants/create`,
-              { applicant_id: response.data.applicant_id }
-            );
-          } catch (error) {
-            console.error("Error creating secondary data record:", error);
-            // Continue with success message even if secondary data creation fails
-          }
-        }
-        
         animateSubmitButton();
         alert("Application submitted successfully!");
         setFormData(initialFormData);
@@ -276,6 +216,7 @@ const NewApplication = () => {
     }, 2000);
   };
   
+
   return (
     <div className={classes.container}>
       <h2 className={classes.h2}>New Application</h2>
@@ -433,7 +374,7 @@ const NewApplication = () => {
           <h3 className={classes.sectionTitle}><Phone className={classes.sectionIcon} />Contact Information</h3>
           <div className={classes.fieldGroup}>
             <div className={classes.formField}>
-              <label className="required">Contact No 1 (Whatsapp): <span className={classes.required}></span></label>
+              <label className="required">Contact No 1: <span className={classes.required}></span></label>
               <input
                 type="text"
                 name="contact_no1"
@@ -441,7 +382,7 @@ const NewApplication = () => {
                 onChange={handleChange}
                 required
                 maxLength="10"
-                placeholder="10-digit mobile number"
+                placeholder="10-digit mobile numbers"
               />
             </div>
             <div className={classes.formField}>
@@ -524,8 +465,6 @@ const NewApplication = () => {
                 <option value="">Select medium</option>
                 <option value="KANNADA">KANNADA</option>
                 <option value="ENGLISH">ENGLISH</option>
-                <option value="URDU">URDU</option>
-                <option value="MARATHI">MARATHI</option>
               </select>
             </div>
           </div>

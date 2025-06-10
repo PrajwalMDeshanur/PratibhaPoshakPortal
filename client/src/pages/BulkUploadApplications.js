@@ -9,7 +9,6 @@ const BulkUploadApplications = ({ refreshData }) => {
   const [error, setError] = useState("");
   const [validationReport, setValidationReport] = useState(null);
   const [logFileUrl, setLogFileUrl] = useState("");
-  const [uploadStats, setUploadStats] = useState(null);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -17,7 +16,6 @@ const BulkUploadApplications = ({ refreshData }) => {
     setError("");
     setValidationReport(null);
     setLogFileUrl("");
-    setUploadStats(null);
   };
 
   const downloadLogFile = async () => {
@@ -53,13 +51,6 @@ const BulkUploadApplications = ({ refreshData }) => {
       return;
     }
 
-    // Check file extension
-    const fileExt = file.name.split('.').pop().toLowerCase();
-    if (fileExt !== 'csv' && fileExt !== 'xlsx' && fileExt !== 'xls') {
-      setError("⚠ Only CSV and Excel files (xlsx, xls) are supported.");
-      return;
-    }
-
     setIsLoading(true);
     const formData = new FormData();
     formData.append("file", file);
@@ -67,14 +58,6 @@ const BulkUploadApplications = ({ refreshData }) => {
     try {
       const response = await axios.post("http://localhost:5000/api/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      // Set upload statistics
-      setUploadStats({
-        totalRecords: response.data.totalRecords || 0,
-        submittedApplications: response.data.submittedApplications || 0,
-        rejectedApplications: response.data.rejectedApplications || 0,
-        duplicateRecords: response.data.duplicateRecords || 0
       });
 
       if (response.status === 200 || response.status === 207) {
@@ -112,23 +95,8 @@ const BulkUploadApplications = ({ refreshData }) => {
       ) {
         userFriendlyMessage +=
           "One or more students in your file have duplicate NMMS Registration Numbers that already exist in the system. Please make sure each NMMS Reg Number is unique.";
-      } else if (
-        backendMessage.includes('null value in column "nmms_reg_number"') &&
-        backendMessage.includes("violates not-null constraint")
-      ) {
-        userFriendlyMessage +=
-          "One or more records in your file are missing the required NMMS Registration Number. Please ensure this field is filled for all students before uploading again.";
-      } else if ( // Add this else if block
-        backendMessage.includes('null value in column "nmms_year"') &&
-        backendMessage.includes("violates not-null constraint")
-      ) {
-        userFriendlyMessage +=
-          "One or more records in your file are missing the required NMMS Year. Please ensure this field is filled and contains a valid year for all students before uploading again.";
       } else {
-        // Keep a fallback for other errors, but maybe simplify it slightly
-        userFriendlyMessage += "An unexpected issue occurred during the upload. Please check the file or contact support if the problem persists.";
-        // Optionally log the technical backendMessage for debugging
-        console.error("Detailed upload error:", backendMessage);
+        userFriendlyMessage += backendMessage;
       }
 
       setError(userFriendlyMessage);
@@ -155,17 +123,7 @@ const BulkUploadApplications = ({ refreshData }) => {
   return (
     <div className="bulk-upload-container">
       <h2>📂 Bulk Upload Applications</h2>
-      <div className="upload-instructions">
-        <h3>Upload a CSV or Excel file containing multiple student applications.</h3>
-        <div className="file-requirements">
-          <h5>File Requirements:</h5>
-          <ul>
-            <li>File must be in CSV or Excel format (.csv, .xlsx, .xls)</li>
-            <li>Required fields: NMMS Year, Registration Number, Student Name, Father's Name, Gender, GMAT Score, SAT Score</li>
-            <li>Each Registration Number must be unique</li>
-          </ul>
-        </div>
-      </div>
+      <p>Upload a CSV or Excel file containing multiple student applications.</p>
 
       {error && <div className="alert alert-danger">{error}</div>}
       {message && <div className="alert alert-success">{message}</div>}
@@ -181,76 +139,38 @@ const BulkUploadApplications = ({ refreshData }) => {
 
       <form onSubmit={handleSubmit} className="upload-form">
         <div className="form-group">
-          <label htmlFor="file-upload" className="form-label">Select File to Upload</label>
-          <div className="file-input-container">
-            <input
-              type="file"
-              id="file-upload"
-              className="form-control"
-              onChange={handleFileChange}
-              accept=".csv, .xlsx, .xls"
-            />
-            {file && <div className="selected-file">Selected: {file.name} ({(file.size / 1024).toFixed(2)} KB)</div>}
-          </div>
+          <label htmlFor="file-upload" className="form-label">Upload File</label>
+          <input
+            type="file"
+            id="file-upload"
+            className="form-control"
+            onChange={handleFileChange}
+            accept=".csv, .xlsx"
+          />
         </div>
         <button type="submit" className="btn btn-primary" disabled={isLoading}>
-          {isLoading ? (
-            <>
-              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-              <span className="ms-2">Uploading...</span>
-            </>
-          ) : (
-            <>📤 Upload File</>
-          )}
+          {isLoading ? "Uploading..." : "📤 Upload File"}
         </button>
       </form>
 
-      {uploadStats && (
-        <div className="upload-stats mt-4">
-          <h4>Upload Summary</h4>
-          <div className="stats-container">
-            <div className="stat-box">
-              <div className="stat-value">{uploadStats.totalRecords}</div>
-              <div className="stat-label">Total Records</div>
-            </div>
-            <div className="stat-box success">
-              <div className="stat-value">{uploadStats.submittedApplications}</div>
-              <div className="stat-label">Successfully Added</div>
-            </div>
-            <div className="stat-box error">
-              <div className="stat-value">{uploadStats.rejectedApplications}</div>
-              <div className="stat-label">Rejected</div>
-            </div>
-            {uploadStats.duplicateRecords > 0 && (
-              <div className="stat-box warning">
-                <div className="stat-value">{uploadStats.duplicateRecords}</div>
-                <div className="stat-label">Duplicates</div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
       {validationReport && (
         <div className="validation-report mt-4">
-          <h4>Validation Issues</h4>
-          <p>The following issues were found in your file:</p>
+          <h4>Validation Report</h4>
+          <p>File: {validationReport.fileName}</p>
+          <p>Total Records: {validationReport.totalRecords}</p>
+          <p>Valid Records: {validationReport.validRecords}</p>
+          <p>Invalid Records: {validationReport.invalidRecords}</p>
 
           <div className="error-list mt-3">
-            <ul className="validation-errors">
+            <h5>Top Errors:</h5>
+            <ul>
               {validationReport.errors.slice(0, 5).map((error, index) => (
-                <li key={index} className="error-item">
-                  <div className="error-row">Row {error.row}</div>
-                  <div className="error-details">
-                    <span className="error-field">{error.field}:</span> {error.message}
-                    {error.value && <span className="error-value">You entered: {error.value}</span>}
-                  </div>
+                <li key={index}>
+                  <strong>Row {error.row}:</strong> {error.message} (Field: {error.field})
                 </li>
               ))}
               {validationReport.errors.length > 5 && (
-                <li className="more-errors">
-                  ...and {validationReport.errors.length - 5} more issues. Download the log file for complete details.
-                </li>
+                <li>...and {validationReport.errors.length - 5} more errors</li>
               )}
             </ul>
           </div>
@@ -259,27 +179,14 @@ const BulkUploadApplications = ({ refreshData }) => {
 
       {logFileUrl && (
         <div className="log-file-section mt-3">
-          <button onClick={downloadLogFile} className="btn btn-info">
-            📝 Download Complete Report
+          <button onClick={downloadLogFile} className="btn btn-secondary">
+            📝 Download Detailed Log File
           </button>
           <p className="mt-1 small text-muted">
-            The detailed report contains all records processed, errors found, and suggestions for fixing issues.
+            Contains complete details of the upload process including all errors and successful records.
           </p>
         </div>
       )}
-
-      <div className="help-section mt-4">
-        <h5>Need Help?</h5>
-        <p>
-          If you're having trouble with your upload, check these common issues:
-        </p>
-        <ul>
-          <li>Make sure all required fields are filled in</li>
-          <li>Check that dates are in DD-MM-YYYY format</li>
-          <li>Ensure phone numbers are 10 digits</li>
-          <li>Verify that each Registration Number is unique</li>
-        </ul>
-      </div>
     </div>
   );
 };

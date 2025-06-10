@@ -1,442 +1,168 @@
-/* Main container styling with improved shadow and background */
+/* BulkUploadApplications.css */
+
+/* Center the upload container */
 .bulk-upload-container {
-  max-width: 900px; /* Or adjust as needed */
-  margin: var(--spacing-xl) auto; /* Use spacing variable for margin */
-  padding: var(--spacing-lg); /* Use spacing variable */
-  background-color: var(--card-background); /* Use variable */
-  border-radius: var(--border-radius-lg); /* Use variable */
-  box-shadow: var(--shadow-md); /* Use variable */
-  border: 1px solid var(--border-color); /* Use variable */
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  text-align: center;
 }
 
-/* Page title styling */
+/* Heading */
 .bulk-upload-container h2 {
-  color: var(--text-primary); /* Use variable */
-  margin-bottom: var(--spacing-lg); /* Use variable */
+  color: #333;
+  font-size: 22px;
+  margin-bottom: 10px;
   font-weight: 600;
-  border-bottom: 2px solid var(--primary-color); /* Use variable */
-  padding-bottom: var(--spacing-md); /* Use variable */
 }
 
-/* Instructions section with improved colors */
-.upload-instructions {
-  margin-bottom: var(--spacing-lg); /* Use variable */
-  padding: var(--spacing-md); /* Use variable */
-  background-color: var(--info-bg, #e8f4fd); /* Use variable or fallback */
-  border-radius: var(--border-radius-md); /* Use variable */
-  border-left: 5px solid var(--primary-color); /* Use variable */
-  color: var(--text-primary); /* Use variable */
+/* Description text */
+.bulk-upload-container p {
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
-.file-requirements {
-  margin-top: 15px;
+/* Form container */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
 
-.file-requirements h5 {
-  color: var(--primary-color); /* Use variable */
-  font-weight: 600;
-  margin-bottom: var(--spacing-sm); /* Use variable */
+/* Form Group */
+.form-group {
+  width: 100%;
+  text-align: left;
 }
 
-.file-requirements ul {
-  padding-left: 20px;
+/* Label styling */
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #444;
 }
 
-.file-requirements li {
-  margin-bottom: var(--spacing-xs); /* Use variable */
-  position: relative;
-  padding-left: 5px;
-  color: var(--text-secondary); /* Use variable */
+/* File Input Field */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  background-color: #f9f9f9;
 }
 
-/* Download section with improved styling */
+/* Upload Button */
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-primary:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Alert Messages */
+.alert {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Sample CSV Download Section */
 .download-section {
-  margin: 20px 0;
-  padding: 15px;
-  background-color: #e8f4fd;
-  border-radius: 8px;
-  border-left: 5px solid #2980b9;
+  margin-top: 20px;
   text-align: center;
 }
 
 .download-section p {
-  font-size: 15px;
-  color: #2c3e50;
-  margin-bottom: 10px;
+  font-size: 14px;
+  color: #444;
 }
 
 .download-link {
   display: inline-block;
-  color: #2980b9;
-  font-weight: 600;
+  color: #007bff;
+  font-weight: bold;
   text-decoration: none;
-  padding: 8px 15px;
-  background-color: rgba(41, 128, 185, 0.1);
-  border-radius: 5px;
-  transition: all 0.2s ease;
+  margin-top: 10px;
 }
 
 .download-link:hover {
-  background-color: rgba(41, 128, 185, 0.2);
-  text-decoration: none;
-  transform: translateY(-2px);
-}
-
-/* Upload form with improved styling */
-.upload-form {
-  margin: 25px 0;
-  padding: 25px;
-  background-color: #f9fafc;
-  border-radius: 10px;
-  border: 1px solid #e6e9f0;
-}
-
-.form-label {
-  color: var(--text-primary); /* Use variable */
-  font-weight: 600;
-  margin-bottom: var(--spacing-sm); /* Use variable */
-  display: block;
-}
-
-.file-input-container {
-  margin-bottom: 20px;
-}
-
-.form-control {
-  border: 1px solid var(--border-color); /* Use variable */
-  padding: var(--spacing-sm) var(--spacing-md); /* Use variable */
-  border-radius: var(--border-radius-md); /* Use variable */
-  background-color: var(--card-background); /* Use variable */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  width: 100%; /* Ensure it takes full width */
-  font-size: var(--font-size-md); /* Use variable */
-}
-
-.form-control:hover {
-   border-color: var(--primary-light); /* Use variable */
-}
-
-.form-control:focus {
-  border-color: var(--primary-color); /* Use variable */
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1); /* Match focus style from index.css */
-}
-
-.selected-file {
-  margin-top: 12px;
-  font-size: 0.95rem;
-  color: #2c3e50;
-  background-color: rgba(52, 152, 219, 0.1);
-  padding: 8px 12px;
-  border-radius: 5px;
-  display: inline-block;
-}
-
-/* Button styling */
-.btn-primary {
-  background-color: var(--primary-color); /* Use variable */
-  color: white;
-  border: none;
-  padding: var(--spacing-sm) var(--spacing-md); /* Use variable */
-  font-weight: 600;
-  border-radius: var(--border-radius-md); /* Use variable */
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: var(--shadow-sm); /* Use variable */
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-dark); /* Use variable */
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md); /* Use variable */
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-sm); /* Use variable */
-}
-
-/* Adjust .btn-info similarly if needed, potentially using --secondary-color */
-.btn-info {
-  background-color: var(--info-color); /* Use variable */
-  border: none;
-  color: white;
-  padding: var(--spacing-sm) var(--spacing-md); /* Use variable */
-  font-weight: 600;
-  border-radius: var(--border-radius-md); /* Use variable */
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: var(--shadow-sm); /* Use variable */
-  cursor: pointer;
-}
-
-.btn-info:hover {
-  background-color: var(--info-dark, #1e88e5); /* Define --info-dark or use fallback */
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md); /* Use variable */
-}
-
-/* Stats section */
-.upload-stats {
-  margin: var(--spacing-lg) 0; /* Use variable */
-  padding: var(--spacing-md); /* Use variable */
-  background-color: var(--background-color); /* Use variable */
-  border-radius: var(--border-radius-md); /* Use variable */
-  border: 1px solid var(--border-color); /* Use variable */
-}
-
-.upload-stats h4 {
-  color: #2c3e50;
-  font-weight: 600;
-  margin-bottom: 15px;
-  border-bottom: 2px solid #3498db;
-  padding-bottom: 8px;
-  display: inline-block;
-}
-
-.stats-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.stat-box {
-  flex: 1;
-  min-width: 130px;
-  padding: 20px;
-  text-align: center;
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  border: 1px solid #f0f0f0;
-}
-
-.stat-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-}
-
-.stat-value {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: #2c3e50;
-}
-
-.stat-label {
-  font-size: 0.95rem;
-  color: #7f8c8d;
-  font-weight: 500;
-}
-
-.stat-box.success {
-  background-color: #eafaf1;
-  border-left: 5px solid #27ae60;
-}
-
-.stat-box.success .stat-value {
-  color: #27ae60;
-}
-
-.stat-box.error {
-  background-color: #fdedec;
-  border-left: 5px solid #e74c3c;
-}
-
-.stat-box.error .stat-value {
-  color: #e74c3c;
-}
-
-.stat-box.warning {
-  background-color: #fef9e7;
-  border-left: 5px solid #f39c12;
-}
-
-.stat-box.warning .stat-value {
-  color: #f39c12;
-}
-
-/* Validation report with improved styling */
-.validation-report {
-  margin: var(--spacing-lg) 0; /* Use variable */
-  padding: var(--spacing-md); /* Use variable */
-  background-color: var(--error-bg-light, #fef9f9); /* Use variable or fallback */
-  border-radius: var(--border-radius-md); /* Use variable */
-  border-left: 5px solid var(--error-color); /* Use variable */
-}
-
-.validation-report h4 {
-  color: var(--error-color); /* Use variable */
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-.validation-errors {
-  list-style-type: none;
-  padding: 0;
-}
-
-.error-item {
-  margin-bottom: 15px;
-  padding: 15px;
-  background-color: #fdedec;
-  border-radius: 8px;
-  border-left: 4px solid #e74c3c;
-  transition: all 0.2s ease;
-}
-
-.error-item:hover {
-  background-color: #fae5e5;
-}
-
-.error-row {
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #c0392b;
-  font-size: 1.05rem;
-}
-
-.error-field {
-  font-weight: 600;
-  color: #e74c3c;
-}
-
-.error-details {
-  color: #34495e;
-  line-height: 1.5;
-}
-
-.error-value {
-  display: block;
-  margin-top: 8px;
-  font-style: italic;
-  color: #7f8c8d;
-  background-color: rgba(0, 0, 0, 0.03);
-  padding: 5px 10px;
-  border-radius: 4px;
-}
-
-.more-errors {
-  padding: 12px;
-  text-align: center;
-  font-style: italic;
-  color: #7f8c8d;
-  background-color: #f8f9fa;
-  border-radius: 6px;
-  margin-top: 10px;
-}
-
-/* Log file section */
-.log-file-section {
-  margin: 25px 0;
-  text-align: center;
-  padding: 15px;
-  background-color: #f9fafc;
-  border-radius: 10px;
-  border: 1px solid #e6e9f0;
-}
-
-.btn-info {
-  background-color: #2980b9;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  font-weight: 600;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(41, 128, 185, 0.3);
-}
-
-.btn-info:hover {
-  background-color: #3498db;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(41, 128, 185, 0.4);
-}
-
-.small.text-muted {
-  color: #7f8c8d;
-  margin-top: 10px;
-  font-size: 0.9rem;
-}
-
-/* Help section with improved styling */
-.help-section {
-  margin-top: var(--spacing-lg); /* Use variable */
-  padding: var(--spacing-md); /* Use variable */
-  background-color: var(--info-bg-light, #e8f4fd); /* Use variable or fallback */
-  border-radius: var(--border-radius-md); /* Use variable */
-  border-left: 5px solid var(--primary-color); /* Use variable */
-}
-
-.help-section h5 {
-  color: var(--primary-dark); /* Use variable */
-  font-weight: 600;
-  margin-bottom: var(--spacing-sm); /* Use variable */
-}
-
-.help-section p {
-  color: var(--text-secondary); /* Use variable */
-  margin-bottom: var(--spacing-sm); /* Use variable */
-}
-
-.help-section ul {
-  padding-left: 20px;
-}
-
-.help-section li {
-  margin-bottom: 8px;
-  color: #2c3e50;
-  position: relative;
-}
-
-/* Alert styling */
-.alert {
-  padding: 15px 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  font-weight: 500;
-}
-
-.alert-danger {
-  background-color: #fdedec;
-  color: #c0392b;
-  border-left: 5px solid #e74c3c;
-}
-
-.alert-success {
-  background-color: #eafaf1;
-  color: #27ae60;
-  border-left: 5px solid #2ecc71;
+  text-decoration: underline;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .bulk-upload-container {
-    max-width: 95%;
-    padding: 15px;
+    max-width: 90%;
+    padding: 20px;
   }
-  
-  .stats-container {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .stat-box {
-    min-width: 100%;
-  }
-  
+
   .btn-primary {
-    width: 100%;
+    font-size: 14px;
   }
 }
 
-/* Animation for better user experience */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Instructions section */
+.upload-instructions {
+  margin-top: 15px;
+  text-align: left;
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  border-left: 4px solid #007bff;
 }
 
-.validation-report, .upload-stats, .log-file-section {
-  animation: fadeIn 0.5s ease-out;
+.upload-instructions h4 {
+  font-size: 16px;
+  color: #007bff;
+  margin-bottom: 8px;
+}
+
+.upload-instructions ul {
+  padding-left: 18px;
+  list-style-type: disc;
+}
+
+.upload-instructions li {
+  text-align: left;
+  margin-bottom: 5px;
+  color: #333;
 }

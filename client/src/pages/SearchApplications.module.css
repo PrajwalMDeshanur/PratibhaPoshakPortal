@@ -1,240 +1,101 @@
-/* SearchApplications.module.css - Enhanced with Accent Color */
+/* SearchApplications.module.css */
 
-/* Define accent color locally or use global variable */
-:root {
-  --accent-color: #17a2b8; /* Example Accent: Teal/Cyan */
-  --accent-color-light: #e8f6f8;
-  --accent-focus-shadow: rgba(23, 162, 184, 0.2);
-}
-
-/* Container: More padding, softer shadow */
 .container {
-  max-width: 950px; /* Slightly wider */
-  margin: var(--spacing-xl) auto;
-  padding: var(--spacing-xl); /* More padding */
-  background-color: var(--card-background);
-  border-radius: var(--border-radius-xl); /* Larger radius */
-  box-shadow: var(--shadow-lg); /* Softer, larger shadow */
-  border: 1px solid var(--border-color-light, #e0e0e0); /* Lighter border */
-  overflow: hidden; /* Ensure child elements respect border radius */
-}
-
-/* Heading: Use accent color for border */
-.heading {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: var(--spacing-xl);
-  text-align: center;
-  padding-bottom: var(--spacing-sm);
-  border-bottom: 2px solid var(--accent-color, #17a2b8); /* Accent color border */
-}
-
-/* Form Wrapper: Refined grid layout */
-.formWrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--spacing-lg) var(--spacing-xl);
-  margin-bottom: var(--spacing-xl);
-}
-
-/* Form Group: Minimal styling needed */
-.formGroup {
   display: flex;
   flex-direction: column;
-  position: relative;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Label: Lighter, smaller */
-.label {
-  display: block;
-  margin-bottom: var(--spacing-xs);
-  font-weight: 500;
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* Specific Label Accent (Example on NMMS Reg Number) */
-/* You would need to add a specific class in your JSX or target via structure */
-/* Example: Target the label within the form group containing the nmms_reg_number input */
-.formGroup input[name="nmms_reg_number"] + .fieldError, /* Style error if present */
-.formGroup input[name="nmms_reg_number"] ~ label /* Style label - might need adjustment based on DOM */
- {
-   /* If targeting label directly is hard, maybe add class to formGroup */
-}
-
-/* Let's add an accent to the label of the focused input */
-.formGroup:focus-within .label {
-  color: var(--accent-color, #17a2b8);
-  font-weight: 600;
-}
-
-
-/* Input & Select: Modern look, better focus */
-.input,
-.select {
-  width: 100%;
-  padding: var(--spacing-md);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-md);
-  background-color: var(--input-background, #fff);
-  font-size: var(--font-size-md);
-  color: var(--text-primary);
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  box-sizing: border-box;
-  appearance: none;
-}
-
-/* Specific styling for select dropdown arrow */
-.select {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right var(--spacing-md) center;
-  background-size: 16px 12px;
-  padding-right: calc(var(--spacing-md) * 2.5);
-}
-
-.input:focus,
-.select:focus {
-  border-color: var(--primary-color);
-  outline: none;
-  box-shadow: 0 0 0 3px var(--primary-focus-shadow, rgba(67, 97, 238, 0.15));
-}
-
-/* Add accent focus state */
-.input:focus:required, /* Example: Accent focus on required fields */
-.select:focus:required {
-  border-color: var(--accent-color, #17a2b8);
-  box-shadow: 0 0 0 3px var(--accent-focus-shadow, rgba(23, 162, 184, 0.2));
-}
-
-
-.input::placeholder {
-  color: var(--text-placeholder, #aaa);
-  opacity: 1;
-}
-
-/* Disabled state: Clearer indication */
-.input:disabled,
-.select:disabled {
-  background-color: var(--disabled-bg, #f8f9fa);
-  border-color: var(--border-color-light, #e0e0e0);
-  cursor: not-allowed;
-  opacity: 0.6;
-  box-shadow: none;
-}
-
-/* Button: More prominent, better feedback */
-.button {
-  grid-column: 1 / -1;
-  padding: var(--spacing-md) var(--spacing-lg);
-  background-image: linear-gradient(to right, var(--primary-light, #6ea8fe), var(--primary-color, #4361ee));
-  color: white;
-  border: none;
-  border-radius: var(--border-radius-md);
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease, background-image 0.3s ease;
-  box-shadow: var(--shadow-sm);
-  text-align: center;
-  margin-top: var(--spacing-md);
-  background-size: 200% auto;
-  position: relative; /* Needed for pseudo-element */
-  overflow: hidden; /* Hide overflow from pseudo-element */
-}
-
-/* Add subtle accent glow on hover */
-.button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%; /* Start off-screen */
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent, var(--accent-color-light, rgba(23, 162, 184, 0.3)), transparent);
-  transition: left 0.6s ease;
-}
-
-.button:hover:not(:disabled)::before {
-  left: 100%; /* Move glow across */
-}
-
-
-.button:hover:not(:disabled) {
-  background-position: right center;
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
-}
-
-.button:active:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.button:disabled {
-  background-image: none;
-  background-color: var(--disabled-bg, #adb5bd);
-  cursor: not-allowed;
-  opacity: 0.6;
-  box-shadow: none;
-  transform: none;
-}
-
-/* Error & Warning Messages: Clear but subtle */
-.error,
-.warning {
-  padding: var(--spacing-sm) var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-  border-radius: var(--border-radius-md);
-  text-align: center;
-  font-size: 0.9rem;
-  border-left: 4px solid;
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 .error {
-  background-color: var(--error-bg-lighter, #fdeaea);
-  color: var(--error-dark, #a31a1a);
-  border-color: var(--error-color, #dc3545);
+  color: #d32f2f;
+  background-color: #fbeaea;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center;
 }
 
 .warning {
-  background-color: var(--warning-bg-lighter, #fff8e1);
-  color: var(--warning-dark, #856404);
-  border-color: var(--warning-color, #ffc107);
+  color: #f57c00;
+  background-color: #fff3e0;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center;
 }
 
-/* Field Error: Positioned below input */
-.fieldError {
-  color: var(--error-color, #dc3545);
-  font-size: 0.8rem;
-  margin-top: var(--spacing-xxs);
-  padding-left: var(--spacing-xxs);
+.formWrapper {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.inputError {
-  border-color: var(--error-color, #dc3545);
-  background-color: var(--error-bg-lighter, #fdeaea);
-}
-.inputError:focus {
-   box-shadow: 0 0 0 3px var(--error-focus-shadow, rgba(220, 53, 69, 0.15));
+.formGroup {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Responsive adjustments */
+.label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.input, .select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus, .select:focus {
+  border-color: #007bff;
+}
+
+.button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
 @media (max-width: 768px) {
   .formWrapper {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-  }
-
-  .container {
-    padding: var(--spacing-lg);
-    margin: var(--spacing-md) auto;
+    padding: 10px;
   }
 
   .heading {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+  }
+
+  .button {
+    font-size: 0.9rem;
   }
 }

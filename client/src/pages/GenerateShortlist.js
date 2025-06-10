@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { 
 =======
 
+=======
+>>>>>>> parent of e7a48c1 (first commit)
 import {
 >>>>>>> e7a48c159d4ace8483cebe22797c96a735dc6ac7
   MapPin, // For State and District
@@ -18,7 +21,6 @@ import {
 } from 'lucide-react';
 import "./GenerateShortlist.css"; // You can keep your existing CSS file
 
- const API_ENDPOINT = "http://localhost:5000/api/shortlists";
 const GenerateShortlist = () => {
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -39,8 +41,6 @@ const GenerateShortlist = () => {
   const [shortlistedStudents, setShortlistedStudents] = useState(0);
   const [loadingCounts, setLoadingCounts] = useState(false);
 
-
-  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/allstates")
@@ -89,12 +89,11 @@ const GenerateShortlist = () => {
         : [...prev, blockName]
     );
   };
-  
+
   const fetchApplicantCounts = async () => {
     setLoadingCounts(true);
     try {
-      const totalResponse = await axios.get(`${API_ENDPOINT}/counts`);
-      
+      const totalResponse = await axios.get("http://localhost:5000/api/total-applicants");
       setTotalApplicants(totalResponse.data.count);
       const shortlistedResponse = await axios.get("http://localhost:5000/api/shortlisted-students");
       setShortlistedStudents(shortlistedResponse.data.count);
@@ -116,7 +115,6 @@ const GenerateShortlist = () => {
       console.log("selectedState:", selectedState);
       console.log("selectedDistrict:", selectedDistrict);
       console.log("selectedLocations:", selectedLocations);
-      console.log("currentYear:", currentYear);
 
       try {
         const response = await axios.post("http://localhost:5000/api/start-shortlist", {
@@ -124,7 +122,6 @@ const GenerateShortlist = () => {
           locations: selectedLocations,
           name: shortlistName,
           description: shortlistDescription,
-          year: currentYear, // Pass the current year
         });
         console.log("Shortlisting started:", response.data);
         setShortlistingResult(response.data);
@@ -136,8 +133,12 @@ const GenerateShortlist = () => {
         }
 =======
         // Optionally refetch counts if needed
+<<<<<<< HEAD
         fetchApplicantCounts();
 >>>>>>> e7a48c159d4ace8483cebe22797c96a735dc6ac7
+=======
+        // fetchApplicantCounts();
+>>>>>>> parent of e7a48c1 (first commit)
 
       } catch (error) {
         console.error("Error starting shortlisting:", error);
@@ -229,7 +230,7 @@ const GenerateShortlist = () => {
           value={shortlistName}
           onChange={(e) => setShortlistName(e.target.value)}
           className="shortlist-input"
-          placeholder="Bailhongal_Kittur_shortlist"
+          placeholder="Enter shortlist name"
         />
 
         <label htmlFor="shortlist-description" className="shortlist-label">
@@ -240,7 +241,7 @@ const GenerateShortlist = () => {
           value={shortlistDescription}
           onChange={(e) => setShortlistDescription(e.target.value)}
           className="shortlist-textarea"
-          placeholder="This shortlist includes the Bailhongal and Kittur blocks of Belagavi district."
+          placeholder="Enter shortlist description"
         />
       </div>
 
@@ -264,9 +265,9 @@ const GenerateShortlist = () => {
       )}
 
       {loadingCounts && <p>Loading applicant counts...</p>}
-      {totalApplicants > 0 && shortlistedStudents >= 0 && (
+      {totalApplicants > 0 && shortlistedStudents > 0 && (
         <div className="applicant-counts">
-           <p><Users className="inline-block mr-2"/>Total Applicants Count ({currentYear}): {totalApplicants} | <UserCheck className="inline-block mr-2"/>Shortlisted Students Count (All Batches): {shortlistedStudents}</p>
+           <p><Users className="inline-block mr-2"/>Total Applicants Count: {totalApplicants} | <UserCheck className="inline-block mr-2"/>Shortlisted Students Count: {shortlistedStudents}</p>
         </div>
       )}
     </div>

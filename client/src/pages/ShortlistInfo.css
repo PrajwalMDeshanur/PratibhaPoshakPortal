@@ -149,24 +149,14 @@ h1 {
   color: #333;
 }
 
-/* Detailed view styling - Default size */
+/* Detailed view styling */
 .detailed-view {
   background-color: #f8f9fa;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  max-width: 600px; /* Keep the default max-width */
+  max-width: 600px;
   margin: 30px auto;
-  transition: max-width 0.3s ease-in-out; /* Add transition for smooth resizing */
-}
-
-/* Detailed view styling - Larger size for download view */
-.detailed-view.download-view {
-  max-width: 95%; /* Larger max-width for the download view */
-}
-
-.get-info-view {
-  max-width: 700px; /* Adjust width for Get Info view if needed */
 }
 
 .detailed-view h2 {
@@ -195,6 +185,7 @@ h1 {
   color: red;
   margin-top: 10px;
   font-weight: bold;
+<<<<<<< HEAD
 }
 
 .shortlist-details-info {
@@ -277,3 +268,6 @@ h1 {
   margin: 0;
 }
 >>>>>>> e7a48c159d4ace8483cebe22797c96a735dc6ac7
+=======
+}
+>>>>>>> parent of e7a48c1 (first commit)
